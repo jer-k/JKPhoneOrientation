@@ -21,6 +21,7 @@
 		9D8C7860195B7C5B007BCFF5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8C7842195B7C5B007BCFF5 /* UIKit.framework */; };
 		9D8C7868195B7C5B007BCFF5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C7866195B7C5B007BCFF5 /* InfoPlist.strings */; };
 		9D8C786A195B7C5B007BCFF5 /* JKPhoneOrientationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C7869195B7C5B007BCFF5 /* JKPhoneOrientationTests.m */; };
+		9D8C7874195B7CA4007BCFF5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8C7873195B7CA4007BCFF5 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		9D8C7865195B7C5B007BCFF5 /* JKPhoneOrientationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JKPhoneOrientationTests-Info.plist"; sourceTree = "<group>"; };
 		9D8C7867195B7C5B007BCFF5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D8C7869195B7C5B007BCFF5 /* JKPhoneOrientationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKPhoneOrientationTests.m; sourceTree = "<group>"; };
+		9D8C7873195B7CA4007BCFF5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8C7874195B7CA4007BCFF5 /* CoreMotion.framework in Frameworks */,
 				9D8C7841195B7C5B007BCFF5 /* CoreGraphics.framework in Frameworks */,
 				9D8C7843195B7C5B007BCFF5 /* UIKit.framework in Frameworks */,
 				9D8C783F195B7C5B007BCFF5 /* Foundation.framework in Frameworks */,
@@ -101,6 +104,7 @@
 		9D8C783D195B7C5B007BCFF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D8C7873195B7CA4007BCFF5 /* CoreMotion.framework */,
 				9D8C783E195B7C5B007BCFF5 /* Foundation.framework */,
 				9D8C7840195B7C5B007BCFF5 /* CoreGraphics.framework */,
 				9D8C7842195B7C5B007BCFF5 /* UIKit.framework */,
