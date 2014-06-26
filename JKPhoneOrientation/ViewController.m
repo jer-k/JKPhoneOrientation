@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, TCTrueTradePhoneOrientation) {
     NSOperationQueue *_motionQueue;
     double _accelerationX;
     double _accelerationY;
+    double _accelerationZ;
     double _phoneAngle;
     NSInteger _phoneOrientation;
     
@@ -45,35 +46,34 @@ typedef NS_ENUM(NSInteger, TCTrueTradePhoneOrientation) {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    _phoneOrientation = PhoneOrientationPortrait;
-    
     _orientationDictionary = @{@(PhoneOrientationPortrait) : @"Portrait",
                                @(PhoneOrientationLandscapeLeft) : @"LandscapeLeft",
                                @(PhoneOrientationLandscapeRight) : @"LandscapeRight",
                                @(PhoneOrientationPortraitUpsideDown) : @"PortraitUpsideDown"};
     
+    // Initialize the phoneOrientation to be an arbitrary number outside of the enum range
+    _phoneOrientation = 100;
+    
+    // Save the rects of currentOrientation and currentAngle so we can return the labels back this position later
     _currentOrientationOriginalRect = _currentOrientation.frame;
     _currentAngleOriginalRect = _currentAngle.frame;
     
-    _phoneOrientation = PhoneOrientationPortrait;
     _motionManager = [[CMMotionManager alloc] init];
-    _motionManager.accelerometerUpdateInterval = 0.01f;
+    _motionManager.accelerometerUpdateInterval = 0.03f;
     _motionQueue = [[NSOperationQueue alloc] init];
     [_motionManager startAccelerometerUpdatesToQueue:_motionQueue withHandler:^(CMAccelerometerData *accelerometerData, NSError *tcUnused) {
         self->_accelerationX = (accelerometerData.acceleration.x * kfilteringFactor + self->_accelerationX * (1.0 - kfilteringFactor));
         self->_accelerationY = (accelerometerData.acceleration.y * kfilteringFactor + self->_accelerationY * (1.0 - kfilteringFactor));
+        self->_accelerationZ = (accelerometerData.acceleration.y * kfilteringFactor + self->_accelerationZ * (1.0 - kfilteringFactor));
+        
         self->_phoneAngle = (atan2(self->_accelerationY, self->_accelerationX)) * 180/M_PI;
         dispatch_async(dispatch_get_main_queue(), ^{
             self->_currentAngle.text = [NSString stringWithFormat:@"%f", self->_phoneAngle];
         });
-        [self rotateForAngle:_phoneAngle];
+        if (self->_accelerationZ <= -0.05 || self->_accelerationZ > 0.05) {
+            [self rotateForAngle:self->_phoneAngle];
+        }
     }];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark MotionManager Helper methods
@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, TCTrueTradePhoneOrientation) {
     
     if ([self isOrientationPortrait:angle]) {
         
-        /* Since this method is being triggered every 0.01 seconds, we want to check to see if the phone is in a consistent orientation
+        /* Since this method is being triggered every 0.03 seconds, we want to check to see if the phone is in a consistent orientation
          * There is no reason to perform the work on the elements if no rotation is occuring */
         if (_phoneOrientation != PhoneOrientationPortrait) {
             
